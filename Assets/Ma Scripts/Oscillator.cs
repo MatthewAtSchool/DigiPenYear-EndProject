@@ -11,6 +11,11 @@ public class Oscillator : MonoBehaviour
     [SerializeField] Vector3 movementVector;
     [SerializeField] float period = 2f;
 
+    [SerializeField] float rotationspeed;
+    [SerializeField] float xRotation;
+    [SerializeField] float yRotation;
+    [SerializeField] float zRotation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,5 +37,7 @@ public class Oscillator : MonoBehaviour
 
         Vector3 offset = movementFactor * movementVector;
         transform.position = startPos + offset;
+
+        transform.Rotate(xRotation * Time.deltaTime, yRotation * Time.deltaTime, zRotation * Time.deltaTime);
     }
 }
