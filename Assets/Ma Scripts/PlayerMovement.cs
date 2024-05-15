@@ -8,11 +8,12 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     public Transform cam;
 
-    public float speed = 6;
+    public float speed = 12;
     public float gravity = -9.81f;
+    public float gravity2 = -8f;
     public float jumpHeight = 3;
     Vector3 velocity;
-    bool isGrounded;
+    public bool isGrounded;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
@@ -23,6 +24,10 @@ public class PlayerMovement : MonoBehaviour
 
     float levelLoadWaitTime = 1f;
 
+    float scaleShrinkXZ = .5f;
+    float scaleShrinkY = .25f;
+    bool isSmaller = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -31,12 +36,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f;
+            velocity.y = gravity2;
         }
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
         //gravity
         velocity.y += gravity * Time.deltaTime;
@@ -59,31 +64,45 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-        }
-
         switch (collision.gameObject.tag)
         {
+            case "Ground":
+                speed = 12f;;
+                jumpHeight = 4f;
+                gravity = -25f;
+                gravity2 = -8f;
+                if(isSmaller == true)
+                {
+                    transform.localScale += new Vector3(scaleShrinkXZ, scaleShrinkY, scaleShrinkXZ);
+                    isSmaller = false;
+                }
+                break;
             case "Death":
                 DeathSequence();
                 break;
             case "Finish":
                 break;
             case "Jump Boost":
+                jumpHeight = 8f;
                 break;
             case "Speed Boost":
                 speed = 20f;
                 break;
             case "Low Gravity":
+                gravity2 = -4f;
+                gravity = -12f;
                 break;
-            case "Untagged":
-                speed = 10f;;
+            case "Shrink":
+                if (isSmaller == true)
+                {
+                    return;
+                }
+                transform.localScale -=  new Vector3(scaleShrinkXZ, scaleShrinkY, scaleShrinkXZ);
+                isSmaller = true;
                 break;
         }
     }
-  
+
     void DeathSequence()
     {
         GetComponent<PlayerMovement>().enabled = false;

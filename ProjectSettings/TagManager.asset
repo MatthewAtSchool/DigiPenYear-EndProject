@@ -7,6 +7,9 @@ TagManager:
   - Death
   - Jump Boost
   - Ground
+  - Speed Boost
+  - Low Gravity
+  - Shrink
   layers:
   - Default
   - TransparentFX
