@@ -66,40 +66,40 @@ public class PlayerMovement : MonoBehaviour
     {
         switch (collision.gameObject.tag)
         {
-            case "Ground":
-                speed = 12f;;
-                jumpHeight = 4f;
-                gravity = -25f;
-                gravity2 = -8f;
-                if(isSmaller == true)
-                {
-                    transform.localScale += new Vector3(scaleShrinkXZ, scaleShrinkY, scaleShrinkXZ);
-                    isSmaller = false;
-                }
-                break;
+          //  case "Ground":
+            //    speed = 12f;;
+            //    jumpHeight = 4f;
+            //    gravity = -25f;
+            //    gravity2 = -8f;
+              //  if(isSmaller == true)
+             //   {
+              //      transform.localScale += new Vector3(scaleShrinkXZ, scaleShrinkY, scaleShrinkXZ);
+              //      isSmaller = false;
+              //  }
+               // break;
             case "Death":
                 DeathSequence();
                 break;
-            case "Finish":
-                break;
-            case "Jump Boost":
-                jumpHeight = 8f;
-                break;
-            case "Speed Boost":
-                speed = 20f;
-                break;
-            case "Low Gravity":
-                gravity2 = -4f;
-                gravity = -12f;
-                break;
-            case "Shrink":
-                if (isSmaller == true)
-                {
-                    return;
-                }
-                transform.localScale -=  new Vector3(scaleShrinkXZ, scaleShrinkY, scaleShrinkXZ);
-                isSmaller = true;
-                break;
+          //  case "Finish":
+          //      break;
+         //   case "Jump Boost":
+           //     jumpHeight = 8f;
+            //    break;
+         //   case "Speed Boost":
+            //    speed = 20f;
+          //      break;
+         //   case "Low Gravity":
+           //     gravity2 = -4f;
+            //    gravity = -12f;
+          //      break;
+          //  case "Shrink":
+           //     if (isSmaller == true)
+            //    {
+            //        return;
+            //    }
+             //   transform.localScale -=  new Vector3(scaleShrinkXZ, scaleShrinkY, scaleShrinkXZ);
+             //   isSmaller = true;
+             //   break;
         }
     }
 
